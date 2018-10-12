@@ -212,7 +212,7 @@ func tryParseAsGeo(b []byte, nq *api.NQuad) (bool, error) {
 	if err == nil {
 		geo, err := types.ObjectValue(types.GeoID, g)
 		if err != nil {
-			return false, x.Errorf("Couldn't convert value: %s to geo type", string(b))
+			return false, x.Errorf("Couldn't convert value: %s to geo type", b)
 		}
 
 		nq.ObjectValue = geo

@@ -127,10 +127,10 @@ func queryHandler(w http.ResponseWriter, r *http.Request) {
 			return
 		}
 		mp := map[string]interface{}{}
-		mp["schema"] = json.RawMessage(string(js))
+		mp["schema"] = json.RawMessage(js)
 		response["data"] = mp
 	} else {
-		response["data"] = json.RawMessage(string(resp.Json))
+		response["data"] = json.RawMessage(resp.Json)
 	}
 
 	if js, err := json.Marshal(response); err == nil {

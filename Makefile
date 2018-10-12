@@ -21,6 +21,8 @@ BUILD_VERSION ?= $(shell git describe --always --tags)
 
 SUBDIRS = dgraph
 
+PKGS = $(shell go list ./...|grep -v -E 'vendor|contrib|wiki|customtok')
+
 ###############
 
 .PHONY: all $(SUBDIRS)
@@ -28,6 +30,12 @@ all: $(SUBDIRS)
 
 $(SUBDIRS):
 	$(MAKE) -w -C $@ all
+
+test:
+	@(set -e;for i in $(PKGS); do \
+		echo Testing $$i ...; \
+		go test -short=true $$i; \
+	done)
 
 version:
 	@echo Dgraph ${BUILD_VERSION}
@@ -51,6 +59,7 @@ help:
 	@echo
 	@echo Build commands:
 	@echo "  make [all]     - Build all targets"
+	@echo "  make test      - Run tests"
 	@echo "  make dgraph    - Build only dgraph binary"
 	@echo "  make install   - Install all targets"
 	@echo "  make uninstall - Uninstall known targets"

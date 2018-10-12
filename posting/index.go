@@ -515,11 +515,10 @@ type rebuild struct {
 
 // storeList would store the list in the cache.
 func (r *rebuild) storeList(list *List) bool {
-	key := string(list.key)
-	if _, ok := r.cache[key]; ok {
+	if _, ok := r.cache[string(list.key)]; ok {
 		return false
 	}
-	r.cache[key] = list
+	r.cache[string(list.key)] = list
 	return true
 }
 
